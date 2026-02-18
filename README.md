@@ -1,0 +1,1 @@
+# 6.2.Bateria_de_ejercicios_de_diagrama_de_clases

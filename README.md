@@ -18,16 +18,16 @@
 **Diagrama UML:**
 
 ```
-┌─────────────────────────────┐
-│         Usuario             │
-├─────────────────────────────┤
-│ - nombreUsuario: String     │
-│ - contrasena: String        │
-│ + correo: String            │
-├─────────────────────────────┤
-│ + cambiarPassword(nueva: String): void
-│ - validarEmail(): boolean   │
-└─────────────────────────────┘
+┌─────────────────────────────────────────┐
+│         Usuario                         │
+├─────────────────────────────────────────┤
+│ - nombreUsuario: String                 │
+│ - contrasena: String                    │
+│ + correo: String                        │
+├─────────────────────────────────────────┤
+│ + cambiarPassword(nueva: String): void  | 
+│ - validarEmail(): boolean               │
+└─────────────────────────────────────────┘
 ```
 
 ---
@@ -53,19 +53,19 @@ Una Persona tiene nombre y DNI. Un Estudiante es una Persona, pero además tiene
 │ + setDni(dni: String)       │
 └─────────────────────────────┘
               △
-              │ inherits
+              │ herencia
               │
-┌─────────────────────────────┐
-│         Estudiante          │
-├─────────────────────────────┤
-│ - numeroExpediente: String  │
-│ - notaMedia: double         │
-├─────────────────────────────┤
-│ + getNumeroExpediente(): String
-│ + setNumeroExpediente(num: String)
-│ + getNotaMedia(): double
-│ + setNotaMedia(nota: double)│
-└─────────────────────────────┘
+┌─────────────────────────────────────┐
+│         Estudiante                  │
+├─────────────────────────────────────┤
+│ - numeroExpediente: String          │
+│ - notaMedia: double                 │
+├─────────────────────────────────────┤
+│ + getNumeroExpediente(): String     |
+│ + setNumeroExpediente(num: String)  |
+│ + getNotaMedia(): double            |
+│ + setNotaMedia(nota: double)        │
+└─────────────────────────────────────┘
 ```
 
 ---
@@ -83,15 +83,15 @@ Una Computadora tiene periféricos como un Raton. Si la computadora desaparece, 
 ```
 ┌──────────────────┐  1         1  ┌──────────────────┐
 │    Computadora   │───────────────│    PlacaBase     │
-├──────────────────┤    compose   ├──────────────────┤
-│                  │◄─────────────│                  │
-└──────────────────┘              └──────────────────┘
+├──────────────────┤ composicion   ├──────────────────┤
+│                  │◄───────────── │                  │
+└──────────────────┘               └──────────────────┘
 
-┌──────────────────┐  1         0..* ┌──────────────────┐
+┌──────────────────┐  1       0..* ┌──────────────────┐
 │    Computadora   │───────────────│      Raton       │
-├──────────────────┤    aggregate  ├──────────────────┤
-│                  │◄─────────────│                  │
-└──────────────────┘              └──────────────────┘
+├──────────────────┤   agregacion  ├──────────────────┤
+│                  │◄───────────── │                  │
+└──────────────────┘               └──────────────────┘
 ```
 
 **Representación alternativa:**
@@ -130,11 +130,11 @@ Un CentroComercial puede albergar de 1 a muchas tiendas. Cada Tienda pertenece e
 **Diagrama UML:**
 
 ```
-┌─────────────────────────────┐        1..*      ┌─────────────────────────────┐
+┌─────────────────────────────┐        1..*     ┌─────────────────────────────┐
 │       CentroComercial       │─────────────────│          Tienda             │
 ├─────────────────────────────┤    1            ├─────────────────────────────┤
-│ - nombre: String            │◄───────────────│ - nombre: String            │
-│ - direccion: String         │    tiene       │ - superficie: double        │
+│ - nombre: String            │◄─────────────── │ - nombre: String            │
+│ - direccion: String         │    tiene        │ - superficie: double        │
 ├─────────────────────────────┤                 ├─────────────────────────────┤
 │ + getNombre(): String       │                 │ + getNombre(): String       │
 │ + getTiendas(): List<Tienda>│                 │ + getSuperficie(): double   │
@@ -155,15 +155,15 @@ Crea una interfaz MetodoPago con el método procesar(double importe). Las clases
 
 ```
 ┌─────────────────────────────┐
-│      <<interface>>         │
-│      MetodoPago            │
+│      <<interface>>          │
+│      MetodoPago             |
 ├─────────────────────────────┤
-│ + procesar(importe: double)│
-│        : void              │
+│ + procesar(importe: double) │
+│        : void               │
 └─────────────────────────────┘
               △
-              │ implements
-       �───────┴────────┐
+              │ implementa 
+      �───────┴────────┐
        │                │
 ┌──────────────────┐ ┌──────────────────┐
 │     Tarjeta      │ │     PayPal       │
@@ -172,19 +172,19 @@ Crea una interfaz MetodoPago con el método procesar(double importe). Las clases
 │ - titular: String│ ├──────────────────┤
 ├──────────────────┤ │ + procesar()     │
 │ + procesar()     │ │ + getEmail()     │
-│ + getNumero()   │ └──────────────────┘
+│ + getNumero()    │ └──────────────────┘
 └──────────────────┘
 
-┌─────────────────────────────┐
-│         Carrito             │
-├─────────────────────────────┤
-│ - productos: List<Producto>  │
-│ - total: double             │
-├─────────────────────────────┤
-│ + agregarProducto(p: Producto)│
+┌────────────────────────────────┐
+│         Carrito                │
+├────────────────────────────────┤
+│ - productos: List<Producto>    │
+│ - total: double                │
+├────────────────────────────────┤
+│ + agregarProducto(p: Producto) │
 │ + eliminarProducto(p: Producto)│
-│ + pagar(miMetodo: MetodoPago)│
-└─────────────────────────────┘
+│ + pagar(miMetodo: MetodoPago)  │
+└────────────────────────────────┘
 ```
 
 ---

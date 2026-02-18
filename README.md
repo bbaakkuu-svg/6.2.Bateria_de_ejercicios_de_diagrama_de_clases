@@ -97,12 +97,12 @@ Una Computadora tiene periféricos como un Raton. Si la computadora desaparece, 
 **Representación alternativa:**
 
 ```
-┌─────────────────────────────┐
-│        Computadora          │
-├─────────────────────────────┤
-│ - placaBase: PlacaBase      │───────► PlacaBase (composición)
+┌────────────────────────────────┐
+│        Computadora             │
+├────────────────────────────────┤
+│ - placaBase: PlacaBase         │─────► PlacaBase (composición)
 │ - perifericos: List<Periferico>│──► Periferico (agregación)
-└─────────────────────────────┘
+└────────────────────────────────┘
 
 ┌─────────────────┐
 │    PlacaBase    │
@@ -133,7 +133,7 @@ Un CentroComercial puede albergar de 1 a muchas tiendas. Cada Tienda pertenece e
 ┌─────────────────────────────┐        1..*     ┌─────────────────────────────┐
 │       CentroComercial       │─────────────────│          Tienda             │
 ├─────────────────────────────┤    1            ├─────────────────────────────┤
-│ - nombre: String            │◄─────────────── │ - nombre: String            │
+│ - nombre: String            │◄────────────────│ - nombre: String            │
 │ - direccion: String         │    tiene        │ - superficie: double        │
 ├─────────────────────────────┤                 ├─────────────────────────────┤
 │ + getNombre(): String       │                 │ + getNombre(): String       │
@@ -162,9 +162,9 @@ Crea una interfaz MetodoPago con el método procesar(double importe). Las clases
 │        : void               │
 └─────────────────────────────┘
               △
-              │ implementa 
-      �───────┴────────┐
-       │                │
+              | implementa 
+     �───────┴────────────────┐
+     │                         |
 ┌──────────────────┐ ┌──────────────────┐
 │     Tarjeta      │ │     PayPal       │
 ├──────────────────┤ ├──────────────────┤
@@ -232,29 +232,29 @@ Crea una interfaz MetodoPago con el método procesar(double importe). Las clases
           │ inheritance
     ┌─────┴─────┐
     │           │
-┌──────────────┐ ┌────────────────┐
-│    Libro     │ │    Revista    │
-├──────────────┤ ├────────────────┤
-│ - isbn:      │ │ - numeroEdicion│
-│   String     │ │   : int        │
-├──────────────┤ ├────────────────┤
+┌──────────────┐ ┌─────────────────────┐
+│    Libro     │ │    Revista          │
+├──────────────┤ ├─────────────────────┤
+│ - isbn:      │ │ - numeroEdicion     │
+│   String     │ │   : int             │
+├──────────────┤ ├─────────────────────┤
 │ + getIsbn()  │ │ + getNumeroEdicion()│
 │ + setIsbn()  │ │ + setNumeroEdicion()│
-└──────────────┘ └────────────────┘
+└──────────────┘ └─────────────────────┘
 
-┌─────────────────────────────┐        0..*      ┌─────────────────────────────┐
+┌─────────────────────────────┐        0..*     ┌─────────────────────────────┐                 ┌─────────────────────────────┐
 │           Usuario           │─────────────────│          Recurso            │
 ├─────────────────────────────┤    1            ├─────────────────────────────┤
-│ - nombre: String            │◄───────────────│ - id: int                   │
-│ - numCarnet: int            │   tiene        │ - titulo: String            │
-├─────────────────────────────┤   prestados   ├─────────────────────────────┤
-│ + getNombre(): String       │                 │ + prestar(): void          │
-│ + setNombre(nombre: String) │                 │ + devolver(): void         │
+│ - nombre: String            │◄────────────────│ - id: int                   │
+│ - numCarnet: int            │   tiene         │ - titulo: String            │
+├─────────────────────────────┤   prestados     ├─────────────────────────────┤
+│ + getNombre(): String       │                 │ + prestar(): void           │
+│ + setNombre(nombre: String) │                 │ + devolver(): void          │
 │ + getNumCarnet(): int       │                 │ + getId(): int              │
 │ + setNumCarnet(carnet: int) │                 │ + getTitulo(): String       │
 │ + agregarRecurso(r: Recurso)│                 └─────────────────────────────┘
 │ + eliminarRecurso(r: Recurso)│
-└─────────────────────────────┘
+└──────────────────────────────┘
 ```
 
 ---

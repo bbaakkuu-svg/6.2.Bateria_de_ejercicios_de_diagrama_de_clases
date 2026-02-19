@@ -201,45 +201,39 @@ classDiagram
 
 **Diagrama UML:**
 
-```
-┌─────────────────────────────┐
-│          Recurso            │
-├─────────────────────────────┤
-│ - id: int                   │
-│ - titulo: String            │
-├─────────────────────────────┤
-│ + prestar(): void           │
-│ + devolver(): void          │
-│ + getId(): int              │
-│ + getTitulo(): String       │
-└─────────────────────────────┘
-                △
-                │ inheritance
-    ┌───────────┴───────────┐
-    │                       │
-┌──────────────┐ ┌─────────────────────┐
-│    Libro     │ │    Revista          │
-├──────────────┤ ├─────────────────────┤
-│ - isbn:      │ │ - numeroEdicion     │
-│   String     │ │   : int             │
-├──────────────┤ ├─────────────────────┤
-│ + getIsbn()  │ │ + getNumeroEdicion()│
-│ + setIsbn()  │ │ + setNumeroEdicion()│
-└──────────────┘ └─────────────────────┘
-
-┌─────────────────────────────┐        0..*     ┌─────────────────────────────┐                 ┌─────────────────────────────┐                 |                             |
-│           Usuario           │─────────────────│          Recurso            │
-├─────────────────────────────┤    1            ├─────────────────────────────┤
-│ - nombre: String            │◄────────────────│ - id: int                   │
-│ - numCarnet: int            │   tiene         │ - titulo: String            │
-├─────────────────────────────┤   prestados     ├─────────────────────────────┤
-│ + getNombre(): String       │                 │ + prestar(): void           │
-│ + setNombre(nombre: String) │                 │ + devolver(): void          │
-│ + getNumCarnet(): int       │                 │ + getId(): int              │
-│ + setNumCarnet(carnet: int) │                 │ + getTitulo(): String       │
-│ + agregarRecurso(r: Recurso)│                 └─────────────────────────────┘
-│ + eliminarRecurso(r: Recurso)│
-└──────────────────────────────┘
+```mermaid
+classDiagram
+    class Recurso {
+        - id: int
+        - titulo: String
+        + prestar() void
+        + devolver() void
+        + getId() int
+        + getTitulo() String
+    }
+    class Libro {
+        - isbn: String
+        + getIsbn() String
+        + setIsbn(isbn: String) void
+    }
+    class Revista {
+        - numeroEdicion: int
+        + getNumeroEdicion() int
+        + setNumeroEdicion(numero: int) void
+    }
+    class Usuario {
+        - nombre: String
+        - numCarnet: int
+        + getNombre() String
+        + setNombre(nombre: String) void
+        + getNumCarnet() int
+        + setNumCarnet(carnet: int) void
+        + agregarRecurso(r: Recurso) void
+        + eliminarRecurso(r: Recurso) void
+    }
+    Recurso <|-- Libro
+    Recurso <|-- Revista
+    Usuario "1" --> "0..*" Recurso
 ```
 
 ---

@@ -1,6 +1,6 @@
 # 6.2. Batería de ejercicios de diagrama de clases
 
-## Ejercicio 1 (1 punto)
+## Ejercicio 1 
 
 **Supuesto:** Diseña una clase Usuario.
 
@@ -17,22 +17,20 @@
 
 **Diagrama UML:**
 
-```
-┌─────────────────────────────────────────┐
-│         Usuario                         │
-├─────────────────────────────────────────┤
-│ - nombreUsuario: String                 │
-│ - contrasena: String                    │
-│ + correo: String                        │
-├─────────────────────────────────────────┤
-│ + cambiarPassword(nueva: String): void  | 
-│ - validarEmail(): boolean               │
-└─────────────────────────────────────────┘
+``` mermaid
+classDiagram
+    class Usuario {
+        - nombreUsuario: String
+        - contrasena: String
+        + correo: String
+        + cambiarPassword(nueva: String) void
+        - validarEmail() boolean
+    }
 ```
 
 ---
 
-## Ejercicio 2 (1 punto)
+## Ejercicio 2 
 
 **Supuesto:** En un sistema escolar, tenemos Personas y Estudiantes.
 
@@ -40,37 +38,30 @@ Una Persona tiene nombre y DNI. Un Estudiante es una Persona, pero además tiene
 
 **Diagrama UML:**
 
-```
-┌─────────────────────────────┐
-│         Persona             │
-├─────────────────────────────┤
-│ - nombre: String            │
-│ - dni: String               │
-├─────────────────────────────┤
-│ + getNombre(): String       │
-│ + setNombre(nombre: String) │
-│ + getDni(): String          │
-│ + setDni(dni: String)       │
-└─────────────────────────────┘
-              △
-              │ herencia
-              │
-┌─────────────────────────────────────┐
-│         Estudiante                  │
-├─────────────────────────────────────┤
-│ - numeroExpediente: String          │
-│ - notaMedia: double                 │
-├─────────────────────────────────────┤
-│ + getNumeroExpediente(): String     |
-│ + setNumeroExpediente(num: String)  |
-│ + getNotaMedia(): double            |
-│ + setNotaMedia(nota: double)        │
-└─────────────────────────────────────┘
+``` mermaid
+classDiagram
+    class Persona {
+        - nombre: String
+        - dni: String
+        + getNombre() String
+        + setNombre(nombre: String) void
+        + getDni() String
+        + setDni(dni: String) void
+    }
+    class Estudiante {
+        - numeroExpediente: String
+        - notaMedia: double
+        + getNumeroExpediente() String
+        + setNumeroExpediente(num: String) void
+        + getNotaMedia() double
+        + setNotaMedia(nota: double) void
+    }
+    Persona <|-- Estudiante
 ```
 
 ---
 
-## Ejercicio 3 (1 punto)
+## Ejercicio 3 
 
 **Supuesto:** Modelar una Computadora.
 
@@ -80,18 +71,18 @@ Una Computadora tiene periféricos como un Raton. Si la computadora desaparece, 
 
 **Diagrama UML:**
 
-```
-┌──────────────────┐  1         1  ┌──────────────────┐
-│    Computadora   │───────────────│    PlacaBase     │
-├──────────────────┤ composicion   ├──────────────────┤
-│                  │◄───────────── │                  │
-└──────────────────┘               └──────────────────┘
-
-┌──────────────────┐  1       0..* ┌──────────────────┐
-│    Computadora   │───────────────│      Raton       │
-├──────────────────┤   agregacion  ├──────────────────┤
-│                  │◄───────────── │                  │
-└──────────────────┘               └──────────────────┘
+``` mermaid
+classDiagram
+    class Computadora {
+        - placaBase: PlacaBase
+        - perifericos: List~Periferico~
+    }
+    class PlacaBase {
+    }
+    class Raton {
+    }
+    Computadora *-- PlacaBase
+    Computadora o-- Raton
 ```
 
 **Representación alternativa:**
@@ -121,7 +112,7 @@ Una Computadora tiene periféricos como un Raton. Si la computadora desaparece, 
 
 ---
 
-## Ejercicio 4 (1,5 puntos)
+## Ejercicio 4 
 
 **Supuesto:** Un CentroComercial y sus Tiendas.
 
@@ -145,7 +136,7 @@ Un CentroComercial puede albergar de 1 a muchas tiendas. Cada Tienda pertenece e
 
 ---
 
-## Ejercicio 5 (2,5 puntos)
+## Ejercicio 5 
 
 **Supuesto:** Sistema de pagos.
 
@@ -161,10 +152,10 @@ Crea una interfaz MetodoPago con el método procesar(double importe). Las clases
 │ + procesar(importe: double) │
 │        : void               │
 └─────────────────────────────┘
-              △
-              | implementa 
-     �───────┴────────────────┐
-     │                         |
+                △
+                | implementa 
+     �─────────┴────────────────┐
+     │                           |
 ┌──────────────────┐ ┌──────────────────┐
 │     Tarjeta      │ │     PayPal       │
 ├──────────────────┤ ├──────────────────┤
@@ -189,7 +180,7 @@ Crea una interfaz MetodoPago con el método procesar(double importe). Las clases
 
 ---
 
-## Ejercicio 6 (3 puntos)
+## Ejercicio 6 
 
 **Supuesto:** Sistema de Gestión de una Biblioteca Universitaria.
 
@@ -228,10 +219,10 @@ Crea una interfaz MetodoPago con el método procesar(double importe). Las clases
 │ + getId(): int              │
 │ + getTitulo(): String       │
 └─────────────────────────────┘
-          △
-          │ inheritance
-    ┌─────┴─────┐
-    │           │
+                △
+                │ inheritance
+    ┌───────────┴───────────┐
+    │                       │
 ┌──────────────┐ ┌─────────────────────┐
 │    Libro     │ │    Revista          │
 ├──────────────┤ ├─────────────────────┤
@@ -242,7 +233,7 @@ Crea una interfaz MetodoPago con el método procesar(double importe). Las clases
 │ + setIsbn()  │ │ + setNumeroEdicion()│
 └──────────────┘ └─────────────────────┘
 
-┌─────────────────────────────┐        0..*     ┌─────────────────────────────┐                 ┌─────────────────────────────┐
+┌─────────────────────────────┐        0..*     ┌─────────────────────────────┐                 ┌─────────────────────────────┐                 |                             |
 │           Usuario           │─────────────────│          Recurso            │
 ├─────────────────────────────┤    1            ├─────────────────────────────┤
 │ - nombre: String            │◄────────────────│ - id: int                   │
@@ -261,11 +252,11 @@ Crea una interfaz MetodoPago con el método procesar(double importe). Las clases
 
 ## Resumen de relaciones UML utilizadas
 
-| Ejercicio | Tipo de relación | Descripción |
-|-----------|------------------|-------------|
-| Ejercicio 1 | Attributes | Visibilidad: private (-) y public (+) |
-| Ejercicio 2 | Herencia | Generalización/Especialización (Estudiante hereda de Persona) |
-| Ejercicio 3 | Composición | Vinculo fuerte (PlacaBase) y Agregación (Raton) |
-| Ejercicio 4 | Asociación binaria | Uno a muchos (CentroComercial → Tiendas) |
-| Ejercicio 5 | Interfaz | Implementación (Tarjeta, PayPal implementan MetodoPago) |
-| Ejercicio 6 | Herencia + Asociación | Recurso (padre) → Libro/Revista (hijos) + Usuario (1..*) |
+| Ejercicio   | Tipo de relación      |                       Descripción                          |
+|-------------|-----------------------|------------------------------------------------------------|
+| Ejercicio 1 | Attributos            | Visibilidad: private (-) y public (+)                      |
+| Ejercicio 2 | Herencia              | Generalización/Especialización (Estudiante hereda de       |      Persona)                                                                                           |
+| Ejercicio 3 | Composición           | Vinculo fuerte (PlacaBase) y Agregación (Raton)            |   
+| Ejercicio 4 | Asociación binaria    | Uno a muchos (CentroComercial → Tiendas)                   |
+| Ejercicio 5 | Interfaz              | Implementación (Tarjeta, PayPal implementan MetodoPago)                                                                                        |
+| Ejercicio 6 | Herencia + Asociación | Recurso (padre) → Libro/Revista (hijos) + Usuario (1..*)                                                                                                 |

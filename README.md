@@ -87,27 +87,21 @@ classDiagram
 
 **Representación alternativa:**
 
-```
-┌────────────────────────────────┐
-│        Computadora             │
-├────────────────────────────────┤
-│ - placaBase: PlacaBase         │─────► PlacaBase (composición)
-│ - perifericos: List<Periferico>│──► Periferico (agregación)
-└────────────────────────────────┘
-
-┌─────────────────┐
-│    PlacaBase    │
-├─────────────────┤
-│                 │
-└─────────────────┘
-         ♦ (composición - vida única)
-
-┌─────────────────┐
-│     Raton       │
-├─────────────────┤
-│                 │
-└─────────────────┘
-         ◇ (agregación - vida independiente)
+``` mermaid
+classDiagram
+    class CentroComercial {
+        - nombre: String
+        - direccion: String
+        + getNombre() String
+        + getTiendas() List~Tienda~
+    }
+    class Tienda {
+        - nombre: String
+        - superficie: double
+        + getNombre() String
+        + getSuperficie() double
+    }
+    CentroComercial "1" --> "1..*" Tienda
 ```
 
 ---
@@ -120,16 +114,21 @@ Un CentroComercial puede albergar de 1 a muchas tiendas. Cada Tienda pertenece e
 
 **Diagrama UML:**
 
-```
-┌─────────────────────────────┐        1..*     ┌─────────────────────────────┐
-│       CentroComercial       │─────────────────│          Tienda             │
-├─────────────────────────────┤    1            ├─────────────────────────────┤
-│ - nombre: String            │◄────────────────│ - nombre: String            │
-│ - direccion: String         │    tiene        │ - superficie: double        │
-├─────────────────────────────┤                 ├─────────────────────────────┤
-│ + getNombre(): String       │                 │ + getNombre(): String       │
-│ + getTiendas(): List<Tienda>│                 │ + getSuperficie(): double   │
-└─────────────────────────────┘                 └─────────────────────────────┘
+```mermaid
+classDiagram
+    class CentroComercial {
+        - nombre: String
+        - direccion: String
+        + getNombre() String
+        + getTiendas() List~Tienda~
+    }
+    class Tienda {
+        - nombre: String
+        - superficie: double
+        + getNombre() String
+        + getSuperficie() double
+    }
+    CentroComercial "1" --> "1..*" Tienda
 ```
 
 **Relación:** CentroComercial (1) ──── (1..*) Tienda
@@ -144,38 +143,33 @@ Crea una interfaz MetodoPago con el método procesar(double importe). Las clases
 
 **Diagrama UML:**
 
-```
-┌─────────────────────────────┐
-│      <<interface>>          │
-│      MetodoPago             |
-├─────────────────────────────┤
-│ + procesar(importe: double) │
-│        : void               │
-└─────────────────────────────┘
-                △
-                | implementa 
-     �─────────┴────────────────┐
-     │                           |
-┌──────────────────┐ ┌──────────────────┐
-│     Tarjeta      │ │     PayPal       │
-├──────────────────┤ ├──────────────────┤
-│ - numeroTarjeta  │ │ - email: String  │
-│ - titular: String│ ├──────────────────┤
-├──────────────────┤ │ + procesar()     │
-│ + procesar()     │ │ + getEmail()     │
-│ + getNumero()    │ └──────────────────┘
-└──────────────────┘
-
-┌────────────────────────────────┐
-│         Carrito                │
-├────────────────────────────────┤
-│ - productos: List<Producto>    │
-│ - total: double                │
-├────────────────────────────────┤
-│ + agregarProducto(p: Producto) │
-│ + eliminarProducto(p: Producto)│
-│ + pagar(miMetodo: MetodoPago)  │
-└────────────────────────────────┘
+```mermaid
+classDiagram
+    class MetodoPago {
+        <<interface>>
+        + procesar(importe: double) void
+    }
+    class Tarjeta {
+        - numeroTarjeta: String
+        - titular: String
+        + procesar(importe: double) void
+        + getNumero() String
+    }
+    class PayPal {
+        - email: String
+        + procesar(importe: double) void
+        + getEmail() String
+    }
+    class Carrito {
+        - productos: List~Producto~
+        - total: double
+        + agregarProducto(p: Producto) void
+        + eliminarProducto(p: Producto) void
+        + pagar(miMetodo: MetodoPago) void
+    }
+    MetodoPago <|.. Tarjeta
+    MetodoPago <|.. PayPal
+    Carrito ..> MetodoPago
 ```
 
 ---
